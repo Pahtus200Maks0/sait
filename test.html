@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест по сериалу "Во все тяжкие"</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: url('../images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.9);
+            color: #ffcc00;
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 3px solid #ffcc00;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            background-color: rgba(51, 51, 51, 0.85);
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            border-left: 5px solid #ffcc00;
+        }
+
+        .quiz-container h2 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #555;
+        }
+
+        .question h3 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .options {
+            margin-top: 10px;
+        }
+
+        .option {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .option input {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .option label {
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ffcc00;
+            color: #333;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            transition: all 0.3s;
+            font-weight: bold;
+            border: 2px solid #ffcc00;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: #ffcc00;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            display: none;
+            border: 1px solid #ffcc00;
+        }
+
+        .result h3 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .result p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .ad {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 220px;
+            background-color: #ffcc00;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            border: 2px solid #333;
+        }
+
+        .ad-close {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .ad-content {
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .ad-content a {
+            color: #d90000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: rgba(51, 51, 51, 0.9);
+            color: #ffcc00;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 40px;
+            border-top: 3px solid #ffcc00;
+        }
+
+        @media (max-width: 768px) {
+            .ad {
+                width: 180px;
+                right: 15px;
+                bottom: 15px;
+            }
+
+            .question h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quiz-container {
+                padding: 15px;
+            }
+
+            .ad {
+                width: 150px;
+                padding: 10px;
+                right: 10px;
+                bottom: 10px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+                display: block;
+                text-align: center;
+            }
+
+            .question h3 {
+                font-size: 1.1rem;
+            }
+
+            .option label {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Тест по сериалу "Во все тяжкие"</h1>
+    </header>
+
+    <div class="container">
+        <div class="quiz-container">
+            <h2>Проверьте свои знания о сериале</h2>
+            <form id="quiz-form">
+                <div class="question">
+                    <h3>1. Какое прозвище использовал Уолтер Уайт в преступном мире?</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q1" id="q1a" value="a">
+                            <label for="q1a">Гейзенберг</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q1" id="q1b" value="b">
+                            <label for="q1b">Капитан Кук</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q1" id="q1c" value="c">
+                            <label for="q1c">Мистер Уайт</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>2. Какой предмет преподавал Уолтер Уайт в школе?</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q2" id="q2a" value="a">
+                            <label for="q2a">Химия</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q2" id="q2b" value="b">
+                            <label for="q2b">Физика</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q2" id="q2c" value="c">
+                            <label for="q2c">Биология</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>3. Как звали жену Уолтера Уайта?</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q3" id="q3a" value="a">
+                            <label for="q3a">Скайлер</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q3" id="q3b" value="b">
+                            <label for="q3b">Мари</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q3" id="q3c" value="c">
+                            <label for="q3c">Лидия</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>4. Какой диагноз поставили Уолтеру в начале сериала?</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q4" id="q4a" value="a">
+                            <label for="q4a">Рак легких</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q4" id="q4b" value="b">
+                            <label for="q4b">Болезнь сердца</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q4" id="q4c" value="c">
+                            <label for="q4c">Диабет</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>5. Какой химический элемент является символом сериала?</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q5" id="q5a" value="a">
+                            <label for="q5a">Br (Бром)</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q5" id="q5b" value="b">
+                            <label for="q5b">W (Вольфрам)</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q5" id="q5c" value="c">
+                            <label for="q5c">He (Гелий)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="submit-btn" class="btn">Проверить ответы</button>
+            </form>
+
+            <div id="result" class="result"></div>
+
+            <a href="index.html" class="btn">Вернуться на главную</a>
+        </div>
+    </div>
+
+    <div class="ad">
+        <span class="ad-close">✕</span>
+        <div class="ad-content">
+            <p><strong>Ограниченное предложение!</strong></p>
+            <p>Научитесь химии как Уолтер Уайт</p>
+            <p><a href="https://example.com" target="_blank">Нажмите здесь</a>!</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Сайт фаната "Во все тяжкие" | Максим Пахтусов</p>
+    </footer>
+
+    <script>
+        // Фейковый крестик для рекламы
+        document.querySelector('.ad-close').addEventListener('click', function() {
+            this.parentElement.style.display = 'none';
+        });
+
+        // Проверка теста
+        document.getElementById('submit-btn').addEventListener('click', function() {
+            const answers = {
+                q1: 'a',
+                q2: 'a',
+                q3: 'a',
+                q4: 'a',
+                q5: 'a'
+            };
+            
+            let score = 0;
+            const totalQuestions = Object.keys(answers).length;
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                
+                if (selectedOption) {
+                    if (selectedOption.value === answers[`q${i}`]) {
+                        score++;
+                    }
+                }
+            }
+            
+            const resultElement = document.getElementById('result');
+            resultElement.style.display = 'block';
+            resultElement.innerHTML = `
+                <h3>Ваш результат</h3>
+                <p>Правильных ответов: ${score} из ${totalQuestions}</p>
+                <p>${getResultMessage(score, totalQuestions)}</p>
+            `;
+            
+            // Прокрутка к результатам
+            resultElement.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        function getResultMessage(score, total) {
+            const percentage = (score / total) * 100;
+            
+            if (percentage >= 80) {
+                return 'Отличный результат! Вы настоящий эксперт по "Во все тяжкие"!';
+            } else if (percentage >= 50) {
+                return 'Неплохо! Но есть куда расти. Возможно, стоит пересмотреть сериал?';
+            } else {
+                return 'Плохой результат... Вам точно нравится "Во все тяжкие"?';
+            }
+        }
+    </script>
+</body>
+</html>

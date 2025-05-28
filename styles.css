@@ -1,0 +1,22 @@
+/* Стиль для второй рекламы */
+#fake-ad {
+    left: 20px;
+    bottom: 20px;
+    right: auto;
+    background-color: #d90000; /* Красный как в сериале */
+    border-color: #ffcc00;
+}
+
+.fake-close {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    cursor: not-allowed; /* Курсор "недоступно" */
+}
+
+.fake-close:hover {
+    color: #ffcc00; /* Желтый при наведении */
+}
